@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getCart, removeCartItem, updateCartItem } from '../utils/cart'
 
 export default function CartPage() {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => getCart())
   const navigate = useNavigate()
 
   const loadCart = () => {
     setCart(getCart())
   }
-
-  useEffect(() => {
-    loadCart()
-  }, [])
 
   const handleDecrease = (item) => {
     if (item.quantity <= 1) return

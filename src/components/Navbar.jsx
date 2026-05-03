@@ -2,26 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getCartCount } from '../utils/cart'
 
+const getStoredUser = () => {
+  const userRaw = localStorage.getItem('user')
+  return userRaw ? JSON.parse(userRaw) : null
+}
+
 export default function Navbar() {
   const [search, setSearch] = useState('')
-  const [currentUser, setCurrentUser] = useState(null)
   const [showMenu, setShowMenu] = useState(false)
-  const [cartCount, setCartCount] = useState(0)
+  const [cartCount, setCartCount] = useState(() => getCartCount())
 
   const navigate = useNavigate()
-  const location = useLocation()
+  useLocation()
   const menuRef = useRef(null)
-
-  useEffect(() => {
-    const userRaw = localStorage.getItem('user')
-    if (userRaw) {
-      setCurrentUser(JSON.parse(userRaw))
-    } else {
-      setCurrentUser(null)
-    }
-
-    setCartCount(getCartCount())
-  }, [location])
+  const currentUser = getStoredUser()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,7 +45,6 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    setCurrentUser(null)
     setShowMenu(false)
     navigate('/login')
   }
