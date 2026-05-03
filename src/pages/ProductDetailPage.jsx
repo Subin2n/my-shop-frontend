@@ -68,7 +68,7 @@ export default function ProductDetailPage() {
     )
 
     if (result.success) {
-      setMsg(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`)
+      setMsg('')
     } else {
       setMsg(result.message)
     }

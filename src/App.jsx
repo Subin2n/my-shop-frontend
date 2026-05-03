@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import CartToast from './components/CartToast'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminCategoriesPage from './pages/AdminCategoriesPage'
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <CartToast />
       <main className="min-h-[60vh]">
         <Routes>
           <Route path="/" element={<HomePage />} />

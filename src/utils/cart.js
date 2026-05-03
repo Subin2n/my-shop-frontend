@@ -4,6 +4,14 @@ const emitCartChange = () => {
   window.dispatchEvent(new Event('cart-changed'))
 }
 
+const emitCartNotification = (message) => {
+  window.dispatchEvent(
+    new CustomEvent('cart-notification', {
+      detail: { message },
+    })
+  )
+}
+
 export const getCart = () => {
   const cart = localStorage.getItem(CART_KEY)
   return cart ? JSON.parse(cart) : []
@@ -37,6 +45,7 @@ export const addToCart = (product, quantity = 1) => {
   }
 
   saveCart(cart)
+  emitCartNotification('Đã thêm vào giỏ hàng')
   return { success: true }
 }
 
